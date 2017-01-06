@@ -1,0 +1,39 @@
+{
+  "name": "utf8-four-byte",
+  "version": "1.0.0",
+  "description": "encodes and decodes utf8 four byte characters",
+  "main": "utf8-four-byte.js",
+  "scripts": {
+    "test": "eslint *.js && mocha utf8-four-byte-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actionably/utf8-four-byte.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/actionably/utf8-four-byte/issues"
+  },
+  "homepage": "https://github.com/actionably/utf8-four-byte#readme",
+  "dependencies": {
+    "lodash": "4.17.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "6.1.2",
+    "eslint": "3.4.0",
+    "eslint-config-dashbot-backend": "1.0.1",
+    "eslint-plugin-async": "0.1.1",
+    "eslint-plugin-node": "2.0.0",
+    "mocha": "3.2.0",
+    "json-stable-stringify": "1.0.1"
+  },
+  "engines": {
+    "node": "4.3.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "dashbot-backend"
+    ]
+  }
+}
