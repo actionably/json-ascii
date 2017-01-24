@@ -2,9 +2,9 @@
   "name": "utf8-four-byte",
   "version": "1.0.0",
   "description": "encodes and decodes utf8 four byte characters",
-  "main": "utf8-four-byte.js",
+  "main": "json-ascii.js",
   "scripts": {
-    "test": "eslint *.js && mocha utf8-four-byte-test.js"
+    "test": "eslint *.js && mocha *-test.js"
   },
   "repository": {
     "type": "git",
