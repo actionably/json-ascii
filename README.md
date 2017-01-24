@@ -1,2 +1,2 @@
-# utf8-four-byte
-encodes and decodes utf8 four byte characters
+# json-ascii
+Encodes json objects in only ascii.

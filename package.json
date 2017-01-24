@@ -1,5 +1,5 @@
 {
-  "name": "utf8-four-byte",
+  "name": "json-ascii",
   "version": "1.0.0",
   "description": "encodes and decodes utf8 four byte characters",
   "main": "json-ascii.js",
@@ -8,17 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actionably/utf8-four-byte.git"
+    "url": "git+https://github.com/actionably/json-ascii.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/actionably/utf8-four-byte/issues"
+    "url": "https://github.com/actionably/json-ascii/issues"
   },
-  "homepage": "https://github.com/actionably/utf8-four-byte#readme",
-  "dependencies": {
-    "lodash": "4.17.4"
-  },
+  "homepage": "https://github.com/actionably/json-ascii#readme",
   "devDependencies": {
     "babel-eslint": "6.1.2",
     "eslint": "3.4.0",

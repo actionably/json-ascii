@@ -9,3 +9,5 @@ build
 
 #webstorm config
 .idea
+
+npm-debug.log
