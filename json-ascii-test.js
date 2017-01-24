@@ -19,6 +19,15 @@ describe('json-ascii test', () => {
   it('smile string', () => {
     assert.equal('&#x263a; string', JSONAscii.encode('☺ string'))
   })
+  it('Latin Small Letter Ae string', () => {
+    assert.equal('&#xe6; string', JSONAscii.encode('æ string'))
+  })
+  it('COMBINING RING ABOVE string', () => {
+    assert.equal('a&#x30a; string', JSONAscii.encode('å string'))
+  })
+  it('japan string', () => {
+    assert.equal('&#x3073; string', JSONAscii.encode('び string'))
+  })
   it('smile wink string', () => {
     assert.equal('&#x1f609; string', JSONAscii.encode('😉 string'))
   })
