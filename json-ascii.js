@@ -2,20 +2,29 @@
 
 class JSONAscii {
 
-  // encodes all non ascii characters as \u{hex-code}
-  // which allows parsing with JSON.parse
+  // encodes all non ascii characters as &#x{hex-code};
   encode(string) {
-    return string.replace(/([\x7F-\uFFFF])/g, s => {
-      return '\\u' + ('0000' + s.charCodeAt(0).toString(16)).slice(-4)
+    return string.replace(/&#x/g, '&amp;#x').replace(/([\x7F-\uD7FF]|[\uD800-\uDBFF][\uDC00-\uDFFF])/g, s => {
+      return '&#x' + s.codePointAt(0).toString(16) + ';'
     })
   }
 
+  decode(string) {
+    return string.replace(/&#x([a-fA-F\d]+);/g, (s, entity) => {
+      return String.fromCodePoint(parseInt(entity, 16))
+    }).replace(/&amp;#x/g, '&#x')
+  }
+
   // outputs valid JSON that is entirely made up of ascii characters.
-  // when JSON.parse is applied to the string orginally object
-  // with all UTF-8 characters is returned.
-  stringifySafe(obj) {
+  // to restore the orginal obj use JSONAscii.parseAscii
+  stringifyAscii(obj) {
     const s = JSON.stringify(obj)
     return this.encode(s)
+  }
+
+  parseAscii(s) {
+    const s2 = this.decode(s)
+    return JSON.parse(s2)
   }
 
 }

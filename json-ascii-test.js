@@ -6,14 +6,27 @@ const JSONAscii = require('./json-ascii')
 
 describe('json-ascii test', () => {
   const assertObjectEqual = (expectedObject, actualObject) => {
-    assert.equal(stringify(expectedObject, {space: 2}), stringify(actualObject, {space: 2}))
+    assert.equal(stringify(expectedObject, {
+      space: 2
+    }), stringify(actualObject, {
+      space: 2
+    }))
   }
 
   it('plane string', () => {
     assert.equal('plane string', JSONAscii.encode('plane string'))
   })
   it('smile string', () => {
-    assert.equal('\\ud83d\\ude09 string', JSONAscii.encode('😉 string'))
+    assert.equal('&#x263a; string', JSONAscii.encode('☺ string'))
+  })
+  it('smile wink string', () => {
+    assert.equal('&#x1f609; string', JSONAscii.encode('😉 string'))
+  })
+  it('encoded &', () => {
+    assert.equal('& string', JSONAscii.encode('& string'))
+  })
+  it('encoded smaile and smile string', () => {
+    assert.equal('&amp;#x1f609; and &#x1f609; string', JSONAscii.encode('&#x1f609; and 😉 string'))
   })
   it('encoded/decode object with a smile', () => {
     const testObject = {
@@ -21,6 +34,6 @@ describe('json-ascii test', () => {
       array: ['silly & good', '😉']
     }
     assertObjectEqual(testObject,
-      JSON.parse(JSONAscii.stringifySafe(testObject)))
+      JSONAscii.parseAscii(JSONAscii.stringifyAscii(testObject)))
   })
 })
