@@ -14,31 +14,31 @@ describe('json-ascii test', () => {
   }
 
   it('plane string', () => {
-    assert.equal('plane string', JSONAscii.encode('plane string'))
+    assert.equal('plane string', JSONAscii.encodeAscii('plane string'))
   })
   it('smile string', () => {
-    assert.equal('&#x263a; string', JSONAscii.encode('☺ string'))
+    assert.equal('&#x263a; string', JSONAscii.encodeAscii('☺ string'))
   })
   it('Latin Small Letter Ae string', () => {
-    assert.equal('&#xe6; string', JSONAscii.encode('æ string'))
+    assert.equal('&#xe6; string', JSONAscii.encodeAscii('æ string'))
   })
   it('weird shift out character', () => {
-    assert.equal('&#x1f609; &#xf;', JSONAscii.encode('😉 \x0F'))
+    assert.equal('&#x1f609; &#xf;', JSONAscii.encodeAscii('😉 \x0F'))
   })
   it('COMBINING RING ABOVE string', () => {
-    assert.equal('a&#x30a; string', JSONAscii.encode('å string'))
+    assert.equal('a&#x30a; string', JSONAscii.encodeAscii('å string'))
   })
   it('japan string', () => {
-    assert.equal('&#x3073; string', JSONAscii.encode('び string'))
+    assert.equal('&#x3073; string', JSONAscii.encodeAscii('び string'))
   })
   it('smile wink string', () => {
-    assert.equal('&#x1f609; string', JSONAscii.encode('😉 string'))
+    assert.equal('&#x1f609; string', JSONAscii.encodeAscii('😉 string'))
   })
   it('encoded &', () => {
-    assert.equal('& string', JSONAscii.encode('& string'))
+    assert.equal('& string', JSONAscii.encodeAscii('& string'))
   })
   it('encoded smaile and smile string', () => {
-    assert.equal('&amp;#x1f609; and &#x1f609; string', JSONAscii.encode('&#x1f609; and 😉 string'))
+    assert.equal('&amp;#x1f609; and &#x1f609; string', JSONAscii.encodeAscii('&#x1f609; and 😉 string'))
   })
   it('encoded/decode object with a smile', () => {
     const testObject = {
@@ -46,13 +46,33 @@ describe('json-ascii test', () => {
       array: ['silly & good', '😉']
     }
     assertObjectEqual(testObject,
-      JSONAscii.parseAscii(JSONAscii.stringifyAscii(testObject)))
+      JSONAscii.parseWithDecode(JSONAscii.stringifyAscii(testObject)))
   })
   it('encoded/decode object with a weird shift', () => {
     const testObject = {
       test: '😉 \x0F string',
     }
     assertObjectEqual(testObject,
-      JSONAscii.parseAscii(JSONAscii.stringifyAscii(testObject)))
+      JSONAscii.parseWithDecode(JSONAscii.stringifyAscii(testObject)))
   })
+
+  it('COMBINING RING ABOVE string no four byte', () => {
+    assert.equal('å string', JSONAscii.encodeNoFourByte('å string'))
+  })
+  it('japan string no four byte', () => {
+    assert.equal('び string', JSONAscii.encodeNoFourByte('び string'))
+  })
+  it('smile wink string no four byte', () => {
+    assert.equal('&#x1f609; string', JSONAscii.encodeNoFourByte('😉 string'))
+  })
+
+  it('decode bad character', () => {
+    const testObject = {
+      test: 'string'
+    }
+    const badString = '{"test":"string\x0F"}'
+    assertObjectEqual(testObject,
+      JSONAscii.parseWithDecode(badString, true))
+  })
+
 })
