@@ -4,7 +4,8 @@ class JSONAscii {
 
   // encodes all non ascii characters as &#x{hex-code};
   encode(string) {
-    return string.replace(/&#x/g, '&amp;#x').replace(/([\x7F-\uD7FF]|[\uD800-\uDBFF][\uDC00-\uDFFF])/g, s => {
+    const reg = /([\x00-\x07\x0b\x0e-\x1f\x7F-\uD7FF]|[\uD800-\uDBFF][\uDC00-\uDFFF])/g
+    return string.replace(/&#x/g, '&amp;#x').replace(reg, s => {
       return '&#x' + s.codePointAt(0).toString(16) + ';'
     })
   }

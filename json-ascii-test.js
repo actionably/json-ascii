@@ -22,6 +22,9 @@ describe('json-ascii test', () => {
   it('Latin Small Letter Ae string', () => {
     assert.equal('&#xe6; string', JSONAscii.encode('æ string'))
   })
+  it('weird shift out character', () => {
+    assert.equal('&#x1f609; &#xf;', JSONAscii.encode('😉 \x0F'))
+  })
   it('COMBINING RING ABOVE string', () => {
     assert.equal('a&#x30a; string', JSONAscii.encode('å string'))
   })
@@ -41,6 +44,13 @@ describe('json-ascii test', () => {
     const testObject = {
       test: '😉 string',
       array: ['silly & good', '😉']
+    }
+    assertObjectEqual(testObject,
+      JSONAscii.parseAscii(JSONAscii.stringifyAscii(testObject)))
+  })
+  it('encoded/decode object with a weird shift', () => {
+    const testObject = {
+      test: '😉 \x0F string',
     }
     assertObjectEqual(testObject,
       JSONAscii.parseAscii(JSONAscii.stringifyAscii(testObject)))
