@@ -32,7 +32,7 @@ class JSONAscii {
   }
 
   // outputs valid JSON that is entirely made up of ascii characters.
-  // to restore the orginal obj use JSONAscii.parseAscii
+  // to restore the orginal obj use JSONAscii.parseWithDecode
   stringifyAscii(obj) {
     const s = JSON.stringify(obj)
     return this.encodeAscii(s)
