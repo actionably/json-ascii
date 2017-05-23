@@ -32,5 +32,8 @@
     "extends": [
       "dashbot-backend"
     ]
+  },
+  "dependencies": {
+    "underscore": "1.8.3"
   }
 }

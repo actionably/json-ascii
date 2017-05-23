@@ -2,7 +2,7 @@
 
 const assert = require('assert')
 const stringify = require('json-stable-stringify')
-const JSONAscii = require('./json-ascii')
+const JSONAscii = require('../json-ascii')
 
 describe('json-ascii test', () => {
   const assertObjectEqual = (expectedObject, actualObject) => {
@@ -75,4 +75,20 @@ describe('json-ascii test', () => {
       JSONAscii.parseWithDecode(badString, true))
   })
 
+  it('this dun not work', () => {
+    const str = 'M：\n午安喔'
+    const removedInvalids = JSONAscii.removeInvalidChars(str)
+    console.log(removedInvalids)
+    assert.equal(str, removedInvalids)
+  })
+
+  it('object stringified and then back is untouched', () => {
+    const str = 'M：\n我都會拿工具打 例如；雜誌、書'
+    const jsonObject = {
+      foo: str
+    }
+    const stringified = JSONAscii.stringifyAscii(jsonObject)
+    const backFromString = JSONAscii.parseWithDecode(stringified, true)
+    assertObjectEqual(jsonObject, backFromString)
+  })
 })
