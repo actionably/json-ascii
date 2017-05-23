@@ -1,6 +1,6 @@
 {
   "name": "json-ascii",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "encodes and decodes utf8 four byte characters",
   "main": "json-ascii.js",
   "scripts": {
