@@ -1,5 +1,7 @@
 'use strict'
 
+const ObjectPropertyBase64Encoder = require('./object-property-base64-encoder')
+
 class JSONAscii {
 
   // encodes all non ascii characters as &#x{hex-code};
@@ -50,4 +52,7 @@ class JSONAscii {
 
 }
 
-module.exports = new JSONAscii()
+const jsonAscii = new JSONAscii()
+
+module.exports.jsonAscii = jsonAscii
+module.exports.objectPropertyBase64Encoder = new ObjectPropertyBase64Encoder()
