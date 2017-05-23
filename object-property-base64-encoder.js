@@ -26,8 +26,10 @@ class ObjectPropertyBase64Encoder {
     _.each(_.keys(fieldListConfiguration), (field) => {
       const type = _.get(fieldListConfiguration[field], 'type')
       if (type && _.includes(['object', 'array'], type)) {
-        const jsonString = Buffer.from(returnObject[field], 'base64').toString('utf-8')
-        returnObject[field] = JSON.parse(jsonString)
+        if (_.isString(returnObject[field])) {
+          const jsonString = Buffer.from(returnObject[field], 'base64').toString('utf-8')
+          returnObject[field] = JSON.parse(jsonString)
+        }
       } else if (_.isString(returnObject[field])) {
         returnObject[field] = Buffer.from(returnObject[field], 'base64').toString('utf-8')
       }

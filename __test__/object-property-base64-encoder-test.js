@@ -24,9 +24,9 @@ describe('object property encdoer test', () => {
     }
     const encodedObject = objectPropertyEncoder.encode(objectToEncode, {str: {}, array: {}})
     assertObjectEqual({
-      str: "Zm9v",
+      str: 'Zm9v',
       bar: {
-        baz: "baz"
+        baz: 'baz'
       },
       array: ['foo', 'bar'],
       untouched: 123
@@ -37,9 +37,9 @@ describe('object property encdoer test', () => {
 
   it('encode/decode object with specified types should encode non strings', () => {
     const objectToEncode = {
-      str: "foo",
+      str: 'foo',
       bar: {
-        baz: "baz"
+        baz: 'baz'
       },
       array: ['foo', 'bar'],
       untouched: 123
@@ -47,18 +47,20 @@ describe('object property encdoer test', () => {
     const encodedObject = objectPropertyEncoder.encode(objectToEncode, {
       str: {},
       array: {type: 'array'},
-      bar: {type: 'object'}
+      bar: {type: 'object'},
+      foobar: {type: 'object'}
     })
     assertObjectEqual({
-      str: "Zm9v",
-      array: "WyJmb28iLCJiYXIiXQ==",
-      bar: "eyJiYXoiOiJiYXoifQ==",
+      str: 'Zm9v',
+      array: 'WyJmb28iLCJiYXIiXQ==',
+      bar: 'eyJiYXoiOiJiYXoifQ==',
       untouched: 123
     }, encodedObject)
     const decodedObject = objectPropertyEncoder.decode(encodedObject, {
       str: {},
       array: {type: 'array'},
-      bar: {type: 'object'}
+      bar: {type: 'object'},
+      foobar: {type: 'object'}
     })
     assertObjectEqual(objectToEncode, decodedObject)
   })
