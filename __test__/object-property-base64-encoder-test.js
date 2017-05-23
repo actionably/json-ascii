@@ -51,10 +51,8 @@ describe('object property encdoer test', () => {
     })
     assertObjectEqual({
       str: "Zm9v",
-      bar: {
-        baz: "baz"
-      },
-      array: ['foo', 'bar'],
+      array: "WyJmb28iLCJiYXIiXQ==",
+      bar: "eyJiYXoiOiJiYXoifQ==",
       untouched: 123
     }, encodedObject)
     const decodedObject = objectPropertyEncoder.decode(encodedObject, {

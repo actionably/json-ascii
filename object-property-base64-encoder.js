@@ -12,7 +12,7 @@ class ObjectPropertyBase64Encoder {
         returnObject[field] = Buffer.from(returnObject[field]).toString('base64')
       } else if (_.isObject(returnObject[field]) || _.isArray(returnObject[field])) {
         const type = _.get(fieldListConfiguration[field], 'type')
-        if(type && _.find(['object', 'array'], type)) {
+        if(type && _.includes(['object', 'array'], type)) {
           returnObject[field] = Buffer.from(JSON.stringify(returnObject[field])).toString('base64')
         }
       }
@@ -24,14 +24,14 @@ class ObjectPropertyBase64Encoder {
   decode(object, fieldListConfiguration) {
     const returnObject = _.clone(object)
     _.each(_.keys(fieldListConfiguration), (field) => {
-      if (_.isString(returnObject[field])) {
+      const type = _.get(fieldListConfiguration[field], 'type')
+      if (type && _.includes(['object', 'array'], type)) {
+        const jsonString = Buffer.from(returnObject[field], 'base64').toString('utf-8')
+        returnObject[field] = JSON.parse(jsonString)
+      } else if (_.isString(returnObject[field])) {
         returnObject[field] = Buffer.from(returnObject[field], 'base64').toString('utf-8')
-      } else if (_.isObject(returnObject[field]) || _.isArray(returnObject[field])) {
-        const type = _.get(fieldListConfiguration[field], 'type')
-        if(type && _.find(['object', 'array'], type)) {
-          returnObject[field] = JSON.parse(Buffer.from(returnObject[field], 'base64').toString('utf-8'))
-        }
       }
+
     })
 
     return returnObject
