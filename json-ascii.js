@@ -55,4 +55,4 @@ class JSONAscii {
 const jsonAscii = new JSONAscii()
 
 module.exports.jsonAscii = jsonAscii
-module.exports.objectPropertyBase64Encoder = new ObjectPropertyBase64Encoder()
+module.exports.objectPropertyBase64Encoder = ObjectPropertyBase64Encoder

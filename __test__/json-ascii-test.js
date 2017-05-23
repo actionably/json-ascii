@@ -2,7 +2,7 @@
 
 const assert = require('assert')
 const stringify = require('json-stable-stringify')
-const JSONAscii = require('../json-ascii')
+const JSONAscii = require('../json-ascii').jsonAscii
 
 describe('json-ascii test', () => {
   const assertObjectEqual = (expectedObject, actualObject) => {
