@@ -18,6 +18,7 @@ class ObjectPropertyBase64Encoder {
       }
     })
 
+    returnObject.base64EncoderConfig = fieldListConfiguration
     return returnObject
   }
 
@@ -36,6 +37,7 @@ class ObjectPropertyBase64Encoder {
 
     })
 
+    delete returnObject.base64EncoderConfig
     return returnObject
   }
 }

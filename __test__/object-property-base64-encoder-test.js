@@ -15,23 +15,25 @@ describe('object property encdoer test', () => {
 
   it('encode/decode object with unspecified types should ignore non strings', () => {
     const objectToEncode = {
-      str: "foo",
+      str: 'foo',
       bar: {
-        baz: "baz"
+        baz: 'baz'
       },
       array: ['foo', 'bar'],
       untouched: 123
     }
-    const encodedObject = objectPropertyEncoder.encode(objectToEncode, {str: {}, array: {}})
+    const encoderConfig = {str: {}, array: {}}
+    const encodedObject = objectPropertyEncoder.encode(objectToEncode, encoderConfig)
     assertObjectEqual({
       str: 'Zm9v',
       bar: {
         baz: 'baz'
       },
       array: ['foo', 'bar'],
-      untouched: 123
+      untouched: 123,
+      base64EncoderConfig: encoderConfig
     }, encodedObject)
-    const decodedObject = objectPropertyEncoder.decode(encodedObject, {str: {}, array: {}})
+    const decodedObject = objectPropertyEncoder.decode(encodedObject, encodedObject.base64EncoderConfig)
     assertObjectEqual(objectToEncode, decodedObject)
   })
 
@@ -44,24 +46,21 @@ describe('object property encdoer test', () => {
       array: ['foo', 'bar'],
       untouched: 123
     }
-    const encodedObject = objectPropertyEncoder.encode(objectToEncode, {
+    const encoderConfig = {
       str: {},
       array: {type: 'array'},
       bar: {type: 'object'},
       foobar: {type: 'object'}
-    })
+    }
+    const encodedObject = objectPropertyEncoder.encode(objectToEncode, encoderConfig)
     assertObjectEqual({
       str: 'Zm9v',
       array: 'WyJmb28iLCJiYXIiXQ==',
       bar: 'eyJiYXoiOiJiYXoifQ==',
-      untouched: 123
+      untouched: 123,
+      base64EncoderConfig: encoderConfig
     }, encodedObject)
-    const decodedObject = objectPropertyEncoder.decode(encodedObject, {
-      str: {},
-      array: {type: 'array'},
-      bar: {type: 'object'},
-      foobar: {type: 'object'}
-    })
+    const decodedObject = objectPropertyEncoder.decode(encodedObject, encodedObject.base64EncoderConfig)
     assertObjectEqual(objectToEncode, decodedObject)
   })
 
@@ -72,24 +71,21 @@ describe('object property encdoer test', () => {
       array: 'null',
       untouched: 123
     }
-    const encodedObject = objectPropertyEncoder.encode(objectToEncode, {
+    const encoderConfig = {
       str: {},
       array: {type: 'array'},
       bar: {type: 'object'},
       foobar: {type: 'object'}
-    })
+    }
+    const encodedObject = objectPropertyEncoder.encode(objectToEncode, encoderConfig)
     assertObjectEqual({
       str: 'Zm9v',
       array: 'null',
       bar: 'null',
-      untouched: 123
+      untouched: 123,
+      base64EncoderConfig: encoderConfig
     }, encodedObject)
-    const decodedObject = objectPropertyEncoder.decode(encodedObject, {
-      str: {},
-      array: {type: 'array'},
-      bar: {type: 'object'},
-      foobar: {type: 'object'}
-    })
+    const decodedObject = objectPropertyEncoder.decode(encodedObject, encodedObject.base64EncoderConfig)
     assertObjectEqual(objectToEncode, decodedObject)
   })
 })
