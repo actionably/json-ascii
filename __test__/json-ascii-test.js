@@ -91,4 +91,19 @@ describe('json-ascii test', () => {
     const backFromString = JSONAscii.parseWithDecode(stringified, true)
     assertObjectEqual(jsonObject, backFromString)
   })
+
+  it('an object encoded using object-property-base64-ecoder is untouched by this library', () => {
+    const jsonObject = {
+      str: 'Zm9v',
+      array: 'WyJmb28iLCJiYXIiXQ==',
+      bar: 'eyJiYXoiOiJiYXoifQ==',
+      untouched: 123,
+      base64EncoderConfig: {
+        str: {}
+      }
+    }
+    const backFromString = JSONAscii.parseWithDecode(JSON.stringify(jsonObject), true)
+    assertObjectEqual(jsonObject, backFromString)
+
+  })
 })
