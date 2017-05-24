@@ -1,7 +1,6 @@
 'use strict'
 
 const _ = require('lodash')
-const assert = require('assert')
 
 class ObjectPropertyBase64Encoder {
 
@@ -24,13 +23,13 @@ class ObjectPropertyBase64Encoder {
   }
 
   decode(object, encoderConfiguraiton) {
-
-    const returnObject = _.clone(object)
     const fieldListConfiguration = encoderConfiguraiton || object.base64EncoderConfig
+    if (!fieldListConfiguration) {
+      return object
+    }
+    const returnObject = _.clone(object)
 
-    assert.ok(fieldListConfiguration, 'could not find an encoder configuration to decode with')
-
-      _.each(_.keys(fieldListConfiguration), (field) => {
+    _.each(_.keys(fieldListConfiguration), (field) => {
       const type = _.get(fieldListConfiguration[field], 'type')
       if (type && _.includes(['object', 'array'], type)) {
         if (_.isString(returnObject[field]) && !_.isEqual('null', returnObject[field])) {
