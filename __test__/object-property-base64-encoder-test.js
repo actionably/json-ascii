@@ -88,4 +88,19 @@ describe('object property encdoer test', () => {
     const decodedObject = objectPropertyEncoder.decode(encodedObject, encodedObject.base64EncoderConfig)
     assertObjectEqual(objectToEncode, decodedObject)
   })
+
+  it('when working with kinesis analytics this gets turned into a string parse it and use it in that case', () => {
+    const objectToDecode = {
+      canonicalMessageJson: 'eyJ0ZXh0IjoiTVx1MDAxYVxuJiN4NjIxMTsifQ==',
+      base64EncoderConfig: '{"text":{},"messageJson":{"type":"object"},"canonicalMessageJson":{"type":"object"},' +
+      '"metadata":{"type":"object"}}'
+    }
+
+    const decodedObject = objectPropertyEncoder.decode(objectToDecode)
+    assertObjectEqual({
+      canonicalMessageJson: {
+        'text': 'M\u001a\n&#x6211;'
+      }
+    }, decodedObject)
+  })
 })

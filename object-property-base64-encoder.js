@@ -23,10 +23,14 @@ class ObjectPropertyBase64Encoder {
   }
 
   decode(object, encoderConfiguraiton) {
-    const fieldListConfiguration = encoderConfiguraiton || object.base64EncoderConfig
+    let fieldListConfiguration = encoderConfiguraiton || object.base64EncoderConfig
     if (!fieldListConfiguration) {
       return object
     }
+    if (_.isString(fieldListConfiguration)) {
+      fieldListConfiguration = JSON.parse(fieldListConfiguration)
+    }
+
     const returnObject = _.clone(object)
 
     _.each(_.keys(fieldListConfiguration), (field) => {
